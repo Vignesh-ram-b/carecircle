@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1720" height="900" viewBox="0 0 1720 900" font-family="Arial, Helvetica, sans-serif">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker></defs>
+<rect width="1720" height="900" fill="#ffffff"/>
+<text x="30" y="44" font-size="26" font-weight="700" fill="#111827">CareCircle — agentic family health alerts on AWS Communication Developer Services</text>
+<text x="30" y="70" font-size="14" fill="#4b5563">Health-band data → rule detection → Amazon Bedrock AgentCore agent decides → SES email (+ SMS / WhatsApp optional) → family replies flow back to the agent</text>
+<rect x="30" y="120" width="200" height="84" rx="10" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+<text x="130.0" y="144" text-anchor="middle" font-size="15" font-weight="700" fill="#4b5563">Health band + phone</text>
+<text x="130.0" y="164" text-anchor="middle" font-size="12.5" fill="#1f2937">Health Connect / Fitbit API</text>
+<text x="130.0" y="181" text-anchor="middle" font-size="12.5" fill="#1f2937">or built-in simulator</text>
+<rect x="280" y="120" width="200" height="84" rx="10" fill="#f3e8fd" stroke="#8c4fff" stroke-width="2"/>
+<text x="380.0" y="144" text-anchor="middle" font-size="15" font-weight="700" fill="#8c4fff">Amazon API Gateway</text>
+<text x="380.0" y="164" text-anchor="middle" font-size="12.5" fill="#1f2937">HTTP API</text>
+<text x="380.0" y="181" text-anchor="middle" font-size="12.5" fill="#1f2937">POST /vitals · /simulate</text>
+<rect x="530" y="120" width="230" height="84" rx="10" fill="#fff3e3" stroke="#d86613" stroke-width="2"/>
+<text x="645.0" y="144" text-anchor="middle" font-size="15" font-weight="700" fill="#d86613">API Lambda</text>
+<text x="645.0" y="164" text-anchor="middle" font-size="12.5" fill="#1f2937">store readings, rule-based</text>
+<text x="645.0" y="181" text-anchor="middle" font-size="12.5" fill="#1f2937">detection, open incident</text>
+<rect x="280" y="260" width="200" height="76" rx="10" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+<text x="380.0" y="284" text-anchor="middle" font-size="15" font-weight="700" fill="#4b5563">Live dashboard</text>
+<text x="380.0" y="304" text-anchor="middle" font-size="12.5" fill="#1f2937">vitals · simulator · timeline</text>
+<text x="380.0" y="321" text-anchor="middle" font-size="12.5" fill="#1f2937">“Ask CareCircle” chat</text>
+<rect x="530" y="255" width="230" height="120" rx="10" fill="#e9edfb" stroke="#3b48cc" stroke-width="2"/>
+<text x="645.0" y="279" text-anchor="middle" font-size="15" font-weight="700" fill="#3b48cc">Amazon DynamoDB</text>
+<text x="645.0" y="299" text-anchor="middle" font-size="12.5" fill="#1f2937">Vitals (TTL 30 days)</text>
+<text x="645.0" y="316" text-anchor="middle" font-size="12.5" fill="#1f2937">Incidents + timeline</text>
+<text x="645.0" y="333" text-anchor="middle" font-size="12.5" fill="#1f2937">Patients · Contacts (GSI)</text>
+<text x="645.0" y="350" text-anchor="middle" font-size="12.5" fill="#1f2937">chat · reply channel</text>
+<rect x="530" y="400" width="230" height="62" rx="10" fill="#e9edfb" stroke="#3b48cc" stroke-width="2"/>
+<text x="645.0" y="424" text-anchor="middle" font-size="15" font-weight="700" fill="#3b48cc">SSM Parameter Store</text>
+<text x="645.0" y="444" text-anchor="middle" font-size="12.5" fill="#1f2937">runtime config · agent ARN</text>
+<path d="M230,162 L280,162" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<path d="M480,162 L530,162" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<path d="M380,260 L380,204" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<path d="M645,204 L645,255" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="840" y="120" width="200" height="84" rx="10" fill="#fff3e3" stroke="#d86613" stroke-width="2"/>
+<text x="940.0" y="144" text-anchor="middle" font-size="15" font-weight="700" fill="#d86613">Dispatch Lambda</text>
+<text x="940.0" y="164" text-anchor="middle" font-size="12.5" fill="#1f2937">routes every event</text>
+<text x="940.0" y="181" text-anchor="middle" font-size="12.5" fill="#1f2937">to the agent</text>
+<rect x="1075" y="120" width="140" height="84" rx="10" fill="#fff3e3" stroke="#d86613" stroke-width="2"/>
+<text x="1145.0" y="144" text-anchor="middle" font-size="14" font-weight="700" fill="#d86613">Fallback</text>
+<text x="1145.0" y="164" text-anchor="middle" font-size="12.5" fill="#1f2937">deterministic</text>
+<text x="1145.0" y="181" text-anchor="middle" font-size="12.5" fill="#1f2937">rules if agent down</text>
+<rect x="840" y="255" width="375" height="235" rx="12" fill="#e3f5f1" stroke="#01886f" stroke-width="2.5"/>
+<text x="1027" y="281" text-anchor="middle" font-size="16" font-weight="700" fill="#01886f">Amazon Bedrock AgentCore Runtime</text>
+<text x="1027" y="301" text-anchor="middle" font-size="13" fill="#1f2937">CareCircle agent (Strands) · Claude on Bedrock</text>
+<rect x="848" y="322" width="116" height="25" rx="6" fill="#ffffff" stroke="#01886f" stroke-width="1"/>
+<text x="906" y="339" text-anchor="middle" font-size="9.5" font-family="monospace" fill="#064e3b">get_incident</text>
+<rect x="970" y="322" width="116" height="25" rx="6" fill="#ffffff" stroke="#01886f" stroke-width="1"/>
+<text x="1028" y="339" text-anchor="middle" font-size="9.5" font-family="monospace" fill="#064e3b">get_patient_profile</text>
+<rect x="1092" y="322" width="116" height="25" rx="6" fill="#ffffff" stroke="#01886f" stroke-width="1"/>
+<text x="1150" y="339" text-anchor="middle" font-size="9.5" font-family="monospace" fill="#064e3b">get_recent_vitals</text>
+<rect x="848" y="356" width="116" height="25" rx="6" fill="#ffffff" stroke="#01886f" stroke-width="1"/>
+<text x="906" y="373" text-anchor="middle" font-size="9.5" font-family="monospace" fill="#064e3b">list_family_contacts</text>
+<rect x="970" y="356" width="116" height="25" rx="6" fill="#ffffff" stroke="#01886f" stroke-width="1"/>
+<text x="1028" y="373" text-anchor="middle" font-size="9.5" font-family="monospace" fill="#064e3b">send_alert</text>
+<rect x="1092" y="356" width="116" height="25" rx="6" fill="#ffffff" stroke="#01886f" stroke-width="1"/>
+<text x="1150" y="373" text-anchor="middle" font-size="9.5" font-family="monospace" fill="#064e3b">send_message</text>
+<rect x="848" y="390" width="116" height="25" rx="6" fill="#ffffff" stroke="#01886f" stroke-width="1"/>
+<text x="906" y="407" text-anchor="middle" font-size="9.5" font-family="monospace" fill="#064e3b">send_sms</text>
+<rect x="970" y="390" width="116" height="25" rx="6" fill="#ffffff" stroke="#01886f" stroke-width="1"/>
+<text x="1028" y="407" text-anchor="middle" font-size="9.5" font-family="monospace" fill="#064e3b">send_email</text>
+<rect x="1092" y="390" width="116" height="25" rx="6" fill="#ffffff" stroke="#01886f" stroke-width="1"/>
+<text x="1150" y="407" text-anchor="middle" font-size="9.5" font-family="monospace" fill="#064e3b">update_incident</text>
+<rect x="848" y="424" width="116" height="25" rx="6" fill="#ffffff" stroke="#01886f" stroke-width="1"/>
+<text x="906" y="441" text-anchor="middle" font-size="9.5" font-family="monospace" fill="#064e3b">schedule_escalation</text>
+<text x="1027" y="474" text-anchor="middle" font-size="12" fill="#1f2937">assess · choose who &amp; channel · reply · escalate</text>
+<path d="M760,150 L840,150" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<text x="800" y="143" text-anchor="middle" font-size="11.5" fill="#4b5563" font-style="italic">async invoke</text>
+<path d="M940,204 L940,255" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<text x="948" y="236" text-anchor="start" font-size="11.5" fill="#4b5563" font-style="italic">InvokeAgentRuntime</text>
+<path d="M1040,162 L1075,162" fill="none" stroke="#374151" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arr)"/>
+<path d="M840,360 L760,330" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<text x="766" y="400" text-anchor="start" font-size="11.5" fill="#4b5563" font-style="italic">tools read/write</text>
+<rect x="1265" y="112" width="235" height="92" rx="10" fill="#fde8ef" stroke="#c7184f" stroke-width="2"/>
+<text x="1382.5" y="136" text-anchor="middle" font-size="15" font-weight="700" fill="#c7184f">Amazon SES</text>
+<text x="1382.5" y="156" text-anchor="middle" font-size="12.5" fill="#1f2937">alert emails with one-tap</text>
+<text x="1382.5" y="173" text-anchor="middle" font-size="12.5" fill="#1f2937">reply buttons · daily summary</text>
+<rect x="1265" y="232" width="235" height="76" rx="10" fill="#fde8ef" stroke="#c7184f" stroke-width="2"/>
+<text x="1382.5" y="256" text-anchor="middle" font-size="14" font-weight="700" fill="#c7184f">AWS End User Messaging</text>
+<text x="1382.5" y="274" text-anchor="middle" font-size="14" font-weight="700" fill="#c7184f">SMS</text>
+<text x="1382.5" y="294" text-anchor="middle" font-size="12.5" fill="#1f2937">escalation backup (optional)</text>
+<rect x="1265" y="336" width="235" height="76" rx="10" fill="#fde8ef" stroke="#c7184f" stroke-width="2"/>
+<text x="1382.5" y="360" text-anchor="middle" font-size="14" font-weight="700" fill="#c7184f">AWS End User Messaging</text>
+<text x="1382.5" y="378" text-anchor="middle" font-size="14" font-weight="700" fill="#c7184f">Social — WhatsApp</text>
+<text x="1382.5" y="398" text-anchor="middle" font-size="12.5" fill="#1f2937">optional two-way channel</text>
+<rect x="1545" y="112" width="150" height="300" rx="10" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+<text x="1620.0" y="136" text-anchor="middle" font-size="15" font-weight="700" fill="#4b5563">Family</text>
+<text x="1620.0" y="156" text-anchor="middle" font-size="12.5" fill="#1f2937"></text>
+<text x="1620.0" y="173" text-anchor="middle" font-size="12.5" fill="#1f2937">Priority 1: son</text>
+<text x="1620.0" y="190" text-anchor="middle" font-size="12.5" fill="#1f2937">Priority 2: daughter</text>
+<text x="1620.0" y="207" text-anchor="middle" font-size="12.5" fill="#1f2937"></text>
+<text x="1620.0" y="224" text-anchor="middle" font-size="12.5" fill="#1f2937">Email</text>
+<text x="1620.0" y="241" text-anchor="middle" font-size="12.5" fill="#1f2937">Dashboard chat</text>
+<text x="1620.0" y="258" text-anchor="middle" font-size="12.5" fill="#1f2937">SMS / WhatsApp</text>
+<path d="M1215,160 L1265,160" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<path d="M1215,300 L1240,300 L1240,270 L1265,270" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<path d="M1215,400 L1240,400 L1240,374 L1265,374" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<path d="M1500,158 L1545,158" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<path d="M1500,270 L1545,270" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<path d="M1500,374 L1545,374" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<rect x="1265" y="515" width="235" height="70" rx="10" fill="#f3e8fd" stroke="#8c4fff" stroke-width="2"/>
+<text x="1382.5" y="539" text-anchor="middle" font-size="15" font-weight="700" fill="#8c4fff">API Gateway /act · /ask</text>
+<text x="1382.5" y="559" text-anchor="middle" font-size="12.5" fill="#1f2937">HMAC-signed email buttons</text>
+<text x="1382.5" y="576" text-anchor="middle" font-size="12.5" fill="#1f2937">· dashboard questions</text>
+<rect x="1265" y="600" width="235" height="58" rx="10" fill="#f3e8fd" stroke="#8c4fff" stroke-width="2"/>
+<text x="1382.5" y="624" text-anchor="middle" font-size="15" font-weight="700" fill="#8c4fff">Amazon SNS</text>
+<text x="1382.5" y="644" text-anchor="middle" font-size="12.5" fill="#1f2937">WhatsApp replies (optional)</text>
+<rect x="915" y="530" width="235" height="80" rx="10" fill="#fff3e3" stroke="#d86613" stroke-width="2"/>
+<text x="1032.5" y="554" text-anchor="middle" font-size="15" font-weight="700" fill="#d86613">Reply handlers (Lambda)</text>
+<text x="1032.5" y="574" text-anchor="middle" font-size="12.5" fill="#1f2937">verify, apply ack / resolve,</text>
+<text x="1032.5" y="591" text-anchor="middle" font-size="12.5" fill="#1f2937">log to incident timeline</text>
+<path d="M1620,412 L1620,550 L1500,550" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<text x="1560" y="542" text-anchor="middle" font-size="11.5" fill="#4b5563" font-style="italic">replies</text>
+<path d="M1620,550 L1620,629 L1500,629" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<path d="M1265,550 L1150,560" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<path d="M1265,629 L1150,590" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<path d="M800,190 L800,700" fill="none" stroke="#374151" stroke-width="2"/>
+<path d="M800,190 L840,190" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<path d="M915,570 L800,570" fill="none" stroke="#374151" stroke-width="2"/>
+<text x="808" y="560" font-size="11.5" fill="#4b5563" font-style="italic">family_message</text>
+<rect x="30" y="660" width="200" height="80" rx="10" fill="#f3e8fd" stroke="#8c4fff" stroke-width="2"/>
+<text x="130.0" y="684" text-anchor="middle" font-size="15" font-weight="700" fill="#8c4fff">Amazon EventBridge</text>
+<text x="130.0" y="704" text-anchor="middle" font-size="12.5" fill="#1f2937">every 1 minute</text>
+<rect x="280" y="660" width="230" height="80" rx="10" fill="#fff3e3" stroke="#d86613" stroke-width="2"/>
+<text x="395.0" y="684" text-anchor="middle" font-size="15" font-weight="700" fill="#d86613">Monitor Lambda</text>
+<text x="395.0" y="704" text-anchor="middle" font-size="12.5" fill="#1f2937">escalate if unacknowledged,</text>
+<text x="395.0" y="721" text-anchor="middle" font-size="12.5" fill="#1f2937">band-offline check</text>
+<path d="M230,700 L280,700" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<path d="M510,700 L800,700" fill="none" stroke="#374151" stroke-width="2"/>
+<text x="530" y="692" font-size="11.5" fill="#4b5563" font-style="italic">escalation_due · device_offline</text>
+<rect x="30" y="775" width="200" height="80" rx="10" fill="#f3e8fd" stroke="#8c4fff" stroke-width="2"/>
+<text x="130.0" y="799" text-anchor="middle" font-size="15" font-weight="700" fill="#8c4fff">Amazon EventBridge</text>
+<text x="130.0" y="819" text-anchor="middle" font-size="12.5" fill="#1f2937">daily (8 pm IST)</text>
+<rect x="280" y="775" width="230" height="80" rx="10" fill="#fff3e3" stroke="#d86613" stroke-width="2"/>
+<text x="395.0" y="799" text-anchor="middle" font-size="15" font-weight="700" fill="#d86613">Summary Lambda</text>
+<text x="395.0" y="819" text-anchor="middle" font-size="12.5" fill="#1f2937">24h stats + Bedrock</text>
+<text x="395.0" y="836" text-anchor="middle" font-size="12.5" fill="#1f2937">narrative → SES email</text>
+<path d="M230,815 L280,815" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<path d="M510,815 L1250,815 L1250,190 L1265,190" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+<text x="880" y="806" text-anchor="middle" font-size="11.5" fill="#4b5563" font-style="italic">daily family health email (SES)</text>
+<text x="1265" y="700" font-size="13" font-weight="700" fill="#111827">Legend</text>
+<rect x="1265" y="712" width="18" height="16" rx="3" fill="#fde8ef" stroke="#c7184f" stroke-width="2"/>
+<text x="1293" y="725" font-size="12.5" fill="#1f2937">AWS Communication Developer Services</text>
+<rect x="1265" y="738" width="18" height="16" rx="3" fill="#e3f5f1" stroke="#01886f" stroke-width="2"/>
+<text x="1293" y="751" font-size="12.5" fill="#1f2937">Agentic AI (AgentCore + Bedrock)</text>
+<rect x="1265" y="764" width="18" height="16" rx="3" fill="#fff3e3" stroke="#d86613" stroke-width="2"/>
+<text x="1293" y="777" font-size="12.5" fill="#1f2937">AWS Lambda</text>
+<rect x="1265" y="790" width="18" height="16" rx="3" fill="#e9edfb" stroke="#3b48cc" stroke-width="2"/>
+<text x="1293" y="803" font-size="12.5" fill="#1f2937">Data / config</text>
+<rect x="1265" y="816" width="18" height="16" rx="3" fill="#f3e8fd" stroke="#8c4fff" stroke-width="2"/>
+<text x="1293" y="829" font-size="12.5" fill="#1f2937">Integration / events</text>
+<text x="1265" y="852" font-size="11.5" fill="#6b7280">Deployed with AWS CDK · CloudWatch Logs</text>
+<text x="1265" y="870" font-size="11.5" fill="#6b7280">Monitoring aid, not a medical device.</text>
+</svg>

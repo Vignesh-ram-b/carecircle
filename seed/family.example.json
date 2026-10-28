@@ -1,0 +1,37 @@
+{
+  "patient": {
+    "patientId": "appa",
+    "name": "Appa",
+    "age": 72,
+    "city": "Coimbatore",
+    "notes": "Usual resting heart rate 65-75 bpm. Walks every morning 6-7am. Family doctor: Dr. Kumar.",
+    "doctorName": "Dr. Kumar",
+    "emergencyNumber": "108",
+    "thresholds": {
+      "hr_high": 120,
+      "hr_critical": 150,
+      "spo2_low": 92
+    }
+  },
+  "contacts": [
+    {
+      "phone": "+919000000001",
+      "name": "Vignesh",
+      "relation": "son",
+      "priority": 1,
+      "email": "you@gmail.com",
+      "language": "en",
+      "dailySummary": true
+    },
+    {
+      "phone": "+919000000002",
+      "name": "Priya",
+      "relation": "daughter",
+      "priority": 2,
+      "email": "second-person@gmail.com",
+      "language": "en",
+      "dailySummary": true
+    }
+  ],
+  "_notes": "phone is each person's ID. It only needs to be their real number if you enable WhatsApp or SMS. Use two different email inboxes so the escalation shows up for a second person (a Gmail alias like you+priya@gmail.com works)."
+}

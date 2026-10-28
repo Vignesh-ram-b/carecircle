@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CareCircle · Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f6f5; --card: #ffffff; --ink: #14211d; --muted: #66756f; --line: #e2e8e5;
+    --teal: #0f766e; --teal-soft: #ccfbf1; --amber: #b45309; --amber-soft: #fef3c7;
+    --red: #b91c1c; --red-soft: #fee2e2; --green: #15803d; --green-soft: #dcfce7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0d1412; --card: #141e1b; --ink: #e6efec; --muted: #8fa39c; --line: #22302c;
+      --teal-soft: #134e48; --amber-soft: #422c0a; --red-soft: #4a1515; --green-soft: #12391f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 "DM Sans", system-ui, sans-serif; }
+  header { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px;
+    border-bottom: 1px solid var(--line); background: var(--card); position: sticky; top: 0; z-index: 2; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; }
+  .pulse { width: 10px; height: 10px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 0 var(--teal);
+    animation: pulse 2s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(15,118,110,.5);} 70% { box-shadow: 0 0 0 10px rgba(15,118,110,0);} 100% { box-shadow: 0 0 0 0 rgba(15,118,110,0);} }
+  .tag { font-size: 12px; padding: 3px 9px; border-radius: 99px; background: var(--teal-soft); color: var(--teal); font-weight: 500; }
+  .tag.off { background: var(--amber-soft); color: var(--amber); }
+  main { max-width: 1180px; margin: 0 auto; padding: 22px 16px 60px; display: grid; gap: 18px;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 12px; font-weight: 500; }
+  .patient { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
+  .patient b { font-size: 22px; }
+  .vitals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .vital { border: 1px solid var(--line); border-radius: 12px; padding: 12px; }
+  .vital .v { font: 500 30px/1 "DM Mono", monospace; margin-top: 6px; }
+  .vital .u { font-size: 13px; color: var(--muted); }
+  .vital.alert { border-color: var(--red); background: var(--red-soft); }
+  svg { width: 100%; height: 150px; display: block; margin-top: 14px; }
+  .scen { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  @media (max-width: 520px) { .scen, .vitals { grid-template-columns: repeat(2, 1fr); } }
+  button { font: inherit; cursor: pointer; border-radius: 10px; border: 1px solid var(--line); background: var(--card);
+    color: var(--ink); padding: 10px 8px; text-align: left; }
+  button:hover { border-color: var(--teal); }
+  button small { display: block; color: var(--muted); font-size: 12px; }
+  button.primary { background: var(--teal); border-color: var(--teal); color: #fff; text-align: center; }
+  .incident { border: 1px solid var(--line); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+  .inc-head { padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start; justify-content: space-between; }
+  .sev { font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 6px; }
+  .sev.critical { background: var(--red-soft); color: var(--red); }
+  .sev.warning { background: var(--amber-soft); color: var(--amber); }
+  .sev.info { background: var(--teal-soft); color: var(--teal); }
+  .status { font-size: 12px; color: var(--muted); }
+  .status.OPEN { color: var(--red); font-weight: 700; } .status.ACKNOWLEDGED { color: var(--amber); font-weight: 700; }
+  .status.RESOLVED, .status.FALSE_ALARM { color: var(--green); font-weight: 700; }
+  ol { list-style: none; margin: 0; padding: 4px 14px 12px; border-top: 1px dashed var(--line); }
+  li { display: grid; grid-template-columns: 54px 92px 1fr; gap: 8px; padding: 6px 0; font-size: 13px; }
+  li time { color: var(--muted); font-family: "DM Mono", monospace; font-size: 12px; }
+  .actor { font-weight: 700; font-size: 12px; }
+  .actor.agent { color: var(--teal); } .actor.fallback, .actor.system { color: var(--amber); }
+  .actor.family, .actor.human { color: var(--green); }
+  .empty { color: var(--muted); padding: 30px 0; text-align: center; }
+  .contacts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .chip { font-size: 12px; border: 1px solid var(--line); padding: 3px 9px; border-radius: 99px; color: var(--muted); }
+  #toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--bg);
+    padding: 10px 16px; border-radius: 10px; font-size: 14px; opacity: 0; transition: opacity .3s; pointer-events: none; }
+  #auth { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: none; align-items: center; justify-content: center; z-index: 5; }
+  #auth .card { width: min(380px, 92vw); }
+  input { width: 100%; font: inherit; padding: 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); margin: 8px 0 12px; }
+  .chat { display: flex; flex-direction: column; gap: 8px; max-height: 280px; overflow-y: auto; margin-bottom: 10px; }
+  .msg { padding: 9px 12px; border-radius: 12px; max-width: 88%; font-size: 14px; white-space: pre-line; }
+  .msg.family { align-self: flex-end; background: var(--teal); color: #fff; border-bottom-right-radius: 4px; }
+  .msg.agent { align-self: flex-start; background: var(--bg); border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+  .msg small { display: block; opacity: .7; font-size: 11px; margin-bottom: 2px; }
+  .ask { display: flex; gap: 8px; }
+  .ask input { margin: 0; }
+  .ask button { white-space: nowrap; }
+  .typing { color: var(--muted); font-size: 13px; font-style: italic; }
+  .disclaimer { grid-column: 1 / -1; color: var(--muted); font-size: 12px; text-align: center; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="pulse"></span> CareCircle</div>
+  <span id="agentTag" class="tag">AgentCore agent</span>
+</header>
+<main>
+  <section>
+    <div class="card">
+      <div class="patient"><b id="pname">Loading…</b><span id="pmeta" class="status"></span></div>
+      <div class="vitals">
+        <div class="vital" id="vhr"><div class="u">Heart rate</div><div class="v" id="hr">--</div><div class="u">bpm</div></div>
+        <div class="vital" id="vspo2"><div class="u">SpO₂</div><div class="v" id="spo2">--</div><div class="u">%</div></div>
+        <div class="vital"><div class="u">Activity</div><div class="v" id="steps">--</div><div class="u">steps/min</div></div>
+      </div>
+      <svg id="chart" viewBox="0 0 600 150" preserveAspectRatio="none" aria-label="Heart rate, last 60 minutes"></svg>
+      <div class="status" id="updated" style="margin-top:6px">Heart rate · last 60 min</div>
+      <div class="contacts" id="contacts"></div>
+    </div>
+    <div class="card" style="margin-top:18px">
+      <h2>Simulate the health band</h2>
+      <div class="scen">
+        <button data-s="normal">Normal<small>resting, all fine</small></button>
+        <button data-s="exercise">Morning walk<small>high HR, moving</small></button>
+        <button data-s="resting_tachycardia">Racing heart<small>high HR at rest</small></button>
+        <button data-s="severe_tachycardia">Severe<small>150+ bpm at rest</small></button>
+        <button data-s="low_spo2">Low oxygen<small>SpO₂ under 92%</small></button>
+        <button data-s="fall">Fall<small>fall detected</small></button>
+      </div>
+      <button class="primary" id="summaryBtn" style="width:100%;margin-top:10px">Email today's summary (SES)</button>
+    </div>
+    <div class="card" style="margin-top:18px">
+      <h2>Ask CareCircle</h2>
+      <div class="chat" id="chat"><div class="typing">Ask as a family member, e.g. “How is Appa now?” or “I’m on my way”.</div></div>
+      <form class="ask" id="askForm"><input id="askInput" autocomplete="off" placeholder="Type a question…" maxlength="500">
+        <button class="primary" type="submit">Send</button></form>
+    </div>
+  </section>
+  <section class="card">
+    <h2>Incidents &amp; agent activity</h2>
+    <div id="incidents"><div class="empty">No incidents yet.</div></div>
+  </section>
+  <p class="disclaimer">CareCircle is a monitoring and notification aid, not a medical device. In an emergency call your local emergency number.</p>
+</main>
+<div id="auth"><div class="card"><h2>API token</h2><div class="status">Enter the token from your CareCircle config.</div>
+  <input id="tokenInput" type="password" autocomplete="off"><button class="primary" id="tokenSave" style="width:100%">Continue</button></div></div>
+<div id="toast"></div>
+<script>
+const params = new URLSearchParams(location.search);
+const patientId = params.get("patient") || "appa";
+let token = params.get("token") || "";
+try { token = token || localStorage.getItem("cc_token") || ""; } catch (e) {}
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const hhmm = (ts) => new Date(ts * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
+function toast(msg) { const t = $("toast"); t.textContent = msg; t.style.opacity = 1; setTimeout(() => t.style.opacity = 0, 2600); }
+
+async function api(path, opts = {}) {
+  const res = await fetch(path, { ...opts, headers: { "content-type": "application/json", "x-api-token": token } });
+  if (res.status === 401) { $("auth").style.display = "flex"; throw new Error("unauthorized"); }
+  return res.json();
+}
+
+function chart(history) {
+  const svg = $("chart");
+  const pts = history.filter((r) => typeof r.hr === "number");
+  if (pts.length < 2) { svg.innerHTML = `<text x="300" y="80" text-anchor="middle" fill="currentColor" opacity=".5" font-size="13">waiting for readings</text>`; return; }
+  const now = Date.now() / 1000;
+  const t0 = Math.max(now - 3600, Math.min(pts[0].ts - 60, now - 600)), span = now - t0;
+  const yMin = 40, yMax = 180;
+  const x = (ts) => ((ts - t0) / span) * 600, y = (v) => 150 - ((v - yMin) / (yMax - yMin)) * 150;
+  const d = pts.map((p, i) => `${i ? "L" : "M"}${x(p.ts).toFixed(1)},${y(p.hr).toFixed(1)}`).join(" ");
+  svg.innerHTML = `
+    <line x1="0" x2="600" y1="${y(120)}" y2="${y(120)}" stroke="#b45309" stroke-dasharray="4 4" stroke-width="1"/>
+    <text x="4" y="${y(120) - 5}" font-size="11" fill="#b45309">120 bpm</text>
+    <path d="${d}" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    ${pts.filter((p) => p.fall).map((p) => `<circle cx="${x(p.ts)}" cy="${y(p.hr)}" r="5" fill="#b91c1c"/>`).join("")}`;
+}
+
+function renderIncidents(list) {
+  if (!list.length) { $("incidents").innerHTML = `<div class="empty">No incidents yet. Try a scenario.</div>`; return; }
+  $("incidents").innerHTML = list.map((inc) => `
+    <div class="incident">
+      <div class="inc-head">
+        <div><span class="sev ${esc(inc.severity)}">${esc(inc.severity)}</span>
+          <div style="margin-top:6px;font-weight:600">${esc(inc.summary)}</div>
+          <div class="status">${esc(inc.reading)}</div></div>
+        <div style="text-align:right"><div class="status ${esc(inc.status)}">${esc(inc.status)}</div>
+          <div class="status">${hhmm(inc.createdAt)}</div>
+          ${["OPEN", "ACKNOWLEDGED"].includes(inc.status) ? `<button data-resolve="${esc(inc.incidentId)}" style="margin-top:6px;padding:4px 8px;font-size:12px">Close</button>` : ""}
+        </div>
+      </div>
+      <ol>${(inc.timeline || []).map((e) => `
+        <li><time>${hhmm(e.ts)}</time><span class="actor ${esc(["agent","fallback","system","detector","monitor","whatsapp","dashboard"].includes(e.actor) ? e.actor : "family")}">${esc(e.actor === "fallback" ? "rules" : e.actor)}</span>
+        <span><b>${esc(e.event.replaceAll("_", " "))}</b>${e.detail ? " · " + esc(e.detail) : ""}</span></li>`).join("")}
+      </ol>
+    </div>`).join("");
+  document.querySelectorAll("[data-resolve]").forEach((b) => b.onclick = async () => {
+    await api(`/incidents/${b.dataset.resolve}/resolve`, { method: "POST" }); refresh();
+  });
+}
+
+async function refresh() {
+  if (!token) { $("auth").style.display = "flex"; return; }
+  try {
+    const s = await api(`/status?patientId=${encodeURIComponent(patientId)}`);
+    if (s.error) { $("pname").textContent = s.error; return; }
+    $("pname").textContent = s.patient.name;
+    $("pmeta").textContent = [s.patient.age && `${s.patient.age} yrs`, s.patient.city].filter(Boolean).join(" · ");
+    const l = s.latest || {};
+    $("hr").textContent = l.hr ?? "--"; $("spo2").textContent = l.spo2 ?? "--"; $("steps").textContent = l.steps ?? "--";
+    $("vhr").classList.toggle("alert", (l.hr ?? 0) >= 120 && (l.steps ?? 0) <= 30);
+    $("vspo2").classList.toggle("alert", (l.spo2 ?? 100) < 92);
+    $("updated").textContent = l.ts ? `Heart rate · updated ${hhmm(l.ts)}` : "Heart rate";
+    $("contacts").innerHTML = s.contacts.map((c) => `<span class="chip">${esc(c.name)} · ${esc(c.relation || "")} · P${esc(c.priority)} · ${esc((c.channels || []).join(" + ") || "no channel")}</span>`).join("");
+    renderChat(s.chat || []);
+    const ch = Object.entries(s.channels || {}).filter(([, v]) => v).map(([k]) => k).join(" · ");
+    $("agentTag").textContent = (s.agentConfigured ? "AgentCore agent online" : "Rules mode (agent not connected)") + (ch ? " · " + ch : "");
+    $("agentTag").classList.toggle("off", !s.agentConfigured);
+    chart(s.history || []); renderIncidents(s.incidents || []);
+  } catch (e) { console.warn(e); }
+}
+
+let waiting = false, lastChatLen = 0;
+function renderChat(chat) {
+  if (!chat.length && !waiting) return;
+  if (chat.length !== lastChatLen && chat.length && chat[chat.length - 1].role === "agent") waiting = false;
+  lastChatLen = chat.length;
+  $("chat").innerHTML = chat.map((m) => `<div class="msg ${m.role === "agent" ? "agent" : "family"}"><small>${esc(m.name)} · ${hhmm(m.ts)}</small>${esc(m.text)}</div>`).join("")
+    + (waiting ? `<div class="typing">CareCircle is checking the readings…</div>` : "");
+  $("chat").scrollTop = $("chat").scrollHeight;
+}
+$("askForm").onsubmit = async (e) => {
+  e.preventDefault();
+  const q = $("askInput").value.trim(); if (!q) return;
+  $("askInput").value = ""; waiting = true;
+  const r = await api("/ask", { method: "POST", body: JSON.stringify({ patientId, question: q }) });
+  if (r.error) { waiting = false; toast(r.error); }
+  refresh();
+};
+
+document.querySelectorAll("[data-s]").forEach((b) => b.onclick = async () => {
+  const r = await api("/simulate", { method: "POST", body: JSON.stringify({ patientId, scenario: b.dataset.s, minutes: 6 }) });
+  toast(r.incidentsOpened?.length ? `Concern detected: ${r.concerns.join(", ")} → agent notified` :
+        r.concerns?.length ? `Still ongoing: ${r.concerns.join(", ")}` : "Readings sent · no concern");
+  refresh();
+});
+$("summaryBtn").onclick = async () => { const r = await api("/summary", { method: "POST", body: JSON.stringify({ patientId }) }); toast(r.error ? r.error : `Summary emailed to ${r.sent} contact(s)`); };
+$("tokenSave").onclick = () => { token = $("tokenInput").value.trim(); try { localStorage.setItem("cc_token", token); } catch (e) {} $("auth").style.display = "none"; refresh(); };
+
+refresh(); setInterval(refresh, 4000);
+</script>
+</body>
+</html>

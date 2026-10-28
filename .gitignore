@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# Build output
+build/
+infra/cdk.out/
+cdk.out/
+
+# Local secrets / personal data - never commit
+infra/config.json
+seed/family.json
+
+# AgentCore starter toolkit
+backend/.bedrock_agentcore/
+backend/.bedrock_agentcore.yaml
+backend/Dockerfile
+backend/.dockerignore
